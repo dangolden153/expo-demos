@@ -85,7 +85,7 @@ const BottomTab = () => {
         },
       }}
     >
-      {tabArr.map((item, index) => (
+      {/* {tabArr.map((item, index) => (
         <Tab.Screen
           key={index}
           name={item.route}
@@ -99,9 +99,9 @@ const BottomTab = () => {
             tabBarButton: (props) => <TabButton {...props} item={item} />,
           }}
         />
-      ))}
-      {/* <Tab.Screen name='home' component={DateTime} />
-<Tab.Screen name='setting' component={DateTime} /> */}
+      ))} */}
+      <Tab.Screen name='home' component={DateTime} />
+<Tab.Screen name='setting' component={DateTime} />
     </Tab.Navigator>
   );
 };

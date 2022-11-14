@@ -1,41 +1,63 @@
 import { Button, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useCallback, useRef } from "react";
 import { useState } from "react";
-import { DateTimePickerAndroid } from "@react-native-community/datetimepicker";
+import BottomSheet, { BottomSheetView } from "@gorhom/bottom-sheet";
+// import BottomSheet from 'use'
 
 const DateTime2 = () => {
-  const [date, setDate] = useState(new Date(1598051730000));
+  const bottomSheetRef = useRef(null)
+  const [open, setOpen] = useState(true);
+  const [localErrs, setLocalErrs] = useState({
+    firstName: null,
+    secondName: null,
+    password: null,
+    email: null,
+  })
+  // const snapPoints = ["50%"];
+  const snapPoints = ["40%", "60%", "80%"]
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate;
-    setDate(currentDate);
-  };
+  const handleSnapPress = useCallback((index) => {
+    bottomSheetRef.current?.snapToIndex(index)
+    setOpen(true);
+    console.log('open nah !!!')
+  }, []);
 
-  const showMode = (currentMode) => {
-    DateTimePickerAndroid.open({
-      value: date,
-      onChange,
-      mode: currentMode,
-      is24Hour: true,
-    });
-  };
+  const res =  [
+    { param: "secondName", msg: "second name is required" },
+    { param: "password", msg: "password is required" },
+    { param: "firstName", msg: "required" }
+]
 
-  const showDatepicker = () => {
-    showMode("date");
-  };
 
-  const showTimepicker = () => {
-    showMode("time");
-  };
 
-  console.log("date", date);
+
+
+
+
   return (
-    <View style={styles.container}>
-      <Button onPress={showDatepicker} title="Show date picker!" />
-      <View style={{ marginVertical: 20 }} />
-      <Button onPress={showTimepicker} title="Show time picker!" />
-      <View style={{ marginVertical: 10 }} />
-      <Text>selected: {date.toLocaleString()}</Text>
+    <View style={[styles.container,{ backgroundColor: open ? "#00000050" : "white",}]}>
+      <Text>Heloo world!</Text>
+      {
+        res.map((item, i) =>(
+          <View style={{flexDirection:'row'}}> 
+            <Text>{i}{" "}</Text>
+            <Text>{item.param}</Text>
+            <Text>{item.msg}</Text>
+          </View>
+        ))
+      }
+      <Button onPress={() => handleSnapPress(0)} title="Open Sheeet" />
+      {/* <Button onPress={() => submitFoo()} title="response" /> */}
+      <BottomSheet
+        ref={bottomSheetRef}
+        snapPoints={snapPoints}
+        enablePanDownToClose={true}
+        onClose={() => setOpen(false)}
+      >
+        <BottomSheetView>
+          <Text>hey press!!!</Text>
+        </BottomSheetView>
+      </BottomSheet>
     </View>
   );
 };
@@ -45,7 +67,7 @@ export default DateTime2;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+   
     alignItems: "center",
     justifyContent: "center",
   },

@@ -91,24 +91,20 @@ const HomeScreen = () => {
         }}
       />
 
-      <Button
-        title="top tab screen"
-        onPress={() => navigation.navigate("tab")}
-      />
-
       <View style={{ marginTop: 30 }} />
 
-      <Button title="List screen" onPress={() => navigation.navigate("list")} />
-
-
       <Button
-        title="buttom tab screen"
-        onPress={() => navigation.navigate("BottomTab")}
+        title="bottom tab screen"
+        onPress={() => navigation.navigate("BottomTab2")}
       />
 
       <Button
-        title="buttom tab 2 screen"
-        onPress={() => navigation.navigate("BottomTab2")}
+        title="Top tab screen"
+        onPress={() => navigation.navigate("tab")}
+      />
+      <Button
+        title="Flat list animation"
+        onPress={() => navigation.navigate("flatlist")}
       />
     </View>
   );
